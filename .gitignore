@@ -1,0 +1,68 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+.env.*
+!.env.example
+
+# Data / SQLite
+*.db
+*.sqlite
+data/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Test coverage
+coverage/
+.nyc_output/
+
+# Phaser cache
+.phaser/
+
+# Docker volumes
+ollama/
+
+LINKEDIN_POST.md
+BLOG.md
+X_THREAD.md
+
+# Lockfiles (regenerated on install)
+package-lock.json
+
+# Docusaurus build
+docs/.docusaurus/
+docs/build/
+
+# Temp / debug files
+*.tmp
+*.bak
+
+# Nested upstream project (pablodelucca/pixel-agents) — not part of this repo
+pixel-agents-repo/
+
+# Character sprites — license of original art unverified; add your own (see README -> Asset Setup)
+# (use `git add -f` if you add CC0/clearly-licensed art you intend to share)
+packages/ui/public/assets/agent.png
+packages/ui/public/characters.png
+packages/ui/public/assets/characters/*.png
