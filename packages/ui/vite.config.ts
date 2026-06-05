@@ -7,6 +7,7 @@ export default defineConfig({
     ],
     server: {
         port: 5173,
+        host: true, // bind 0.0.0.0 — required for Codespaces/remote port forwarding (avoids IPv6 ::1-only binding)
         proxy: {
             '/api': 'http://localhost:3000',
         }

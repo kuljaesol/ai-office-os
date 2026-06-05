@@ -50,14 +50,11 @@ export class OfficeScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.spritesheet('char_0', '/assets/characters/char_0.png', {
-            frameWidth: 16,
-            frameHeight: 32
-        });
-        this.load.spritesheet('char_1', '/assets/characters/char_1.png', {
-            frameWidth: 16,
-            frameHeight: 32
-        });
+        // 10 single-pose character figures (ch_rac.jpg sliced + background-removed).
+        // Loaded as plain images (not spritesheets) and scaled at render time.
+        for (let i = 0; i < 10; i++) {
+            this.load.image(`char_${i}`, `/assets/characters/char_${i}.png`);
+        }
     }
 
     create() {
@@ -67,25 +64,8 @@ export class OfficeScene extends Phaser.Scene {
             this.statusText.setScrollFactor(0);
             this.statusText.setDepth(100);
 
-            let hasAnims = false;
-
-            // Create animations for character 0
-            if (this.textures.exists('char_0')) {
-                const anims = this.anims;
-                anims.create({ key: 'char_0-walk-down', frames: anims.generateFrameNumbers('char_0', { start: 0, end: 2 }), frameRate: 8, repeat: -1 });
-                anims.create({ key: 'char_0-walk-up', frames: anims.generateFrameNumbers('char_0', { start: 7, end: 9 }), frameRate: 8, repeat: -1 });
-                anims.create({ key: 'char_0-walk-right', frames: anims.generateFrameNumbers('char_0', { start: 14, end: 16 }), frameRate: 8, repeat: -1 });
-                hasAnims = true;
-            }
-            // Create animations for character 1
-            if (this.textures.exists('char_1')) {
-                const anims = this.anims;
-                anims.create({ key: 'char_1-walk-down', frames: anims.generateFrameNumbers('char_1', { start: 0, end: 2 }), frameRate: 8, repeat: -1 });
-                anims.create({ key: 'char_1-walk-up', frames: anims.generateFrameNumbers('char_1', { start: 7, end: 9 }), frameRate: 8, repeat: -1 });
-                anims.create({ key: 'char_1-walk-right', frames: anims.generateFrameNumbers('char_1', { start: 14, end: 16 }), frameRate: 8, repeat: -1 });
-            }
-
-            console.log("Animations created: ", hasAnims);
+            // Characters are static image figures now (no walk-cycle spritesheets).
+            // Facing direction is conveyed via horizontal flip in the move handler.
 
             const gridSize = this.gridSize;
             const g = this.add.graphics();
@@ -547,12 +527,16 @@ export class OfficeScene extends Phaser.Scene {
                     console.log(`[Colyseus] Agent added: ${agent.name} at (${agent.x}, ${agent.y})`);
                     const container = this.add.container(agent.x * 16, agent.y * 16);
 
-                    let sprite;
-                    let charKey = 'char_0';
-                    if (agent.name.includes('Bob')) charKey = 'char_1';
+                    let sprite: any;
+                    // Assign one of the 10 character figures by join order (stable, no repeats up to 10).
+                    const charIdx = this.agentSprites.size % 10;
+                    const charKey = `char_${charIdx}`;
 
                     if (this.textures.exists(charKey)) {
-                        sprite = this.add.sprite(0, -8, charKey, 0);
+                        const img = this.add.image(0, 8, charKey);
+                        img.setOrigin(0.5, 1);                 // anchor feet to the tile
+                        img.setScale(44 / img.height);         // normalise height to ~44px
+                        sprite = img;
                     } else {
                         sprite = this.add.rectangle(0, -8, 16, 32, 0x3a86ff);
                     }
@@ -629,14 +613,11 @@ export class OfficeScene extends Phaser.Scene {
                             }
                         });
 
-                        // Walk animation
-                        if (sprite.type === 'Sprite') {
-                            const s = sprite as Phaser.GameObjects.Sprite;
-                            if (agent.x > prevX) { s.play(`${charKey}-walk-right`, true); s.setFlipX(false); }
-                            else if (agent.x < prevX) { s.play(`${charKey}-walk-right`, true); s.setFlipX(true); }
-                            else if (agent.y > prevY) { s.play(`${charKey}-walk-down`, true); }
-                            else if (agent.y < prevY) { s.play(`${charKey}-walk-up`, true); }
-                            else { s.stop(); }
+                        // Facing direction via horizontal flip (static figures)
+                        if (sprite.type === 'Image') {
+                            const s = sprite as Phaser.GameObjects.Image;
+                            if (agent.x > prevX) s.setFlipX(false);
+                            else if (agent.x < prevX) s.setFlipX(true);
                         }
 
                         // --- EMOTE BUBBLES based on action ---
@@ -683,6 +664,8 @@ export class OfficeScene extends Phaser.Scene {
                         }));
 
                         lastAction = agent.action;
+                        prevX = agent.x;
+                        prevY = agent.y;
                         prevX = agent.x;
                         prevY = agent.y;
                     });

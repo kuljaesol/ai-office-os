@@ -1,0 +1,18 @@
+{
+  "name": "ai-office-os (AgentOffice)",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:20",
+  "features": {
+    "ghcr.io/devcontainers/features/node:1": { "version": "20" }
+  },
+  "forwardPorts": [3000, 5173],
+  "portsAttributes": {
+    "3000": { "label": "Colyseus server", "onAutoForward": "silent" },
+    "5173": { "label": "Vite UI", "onAutoForward": "openPreview" }
+  },
+  "postCreateCommand": "npm install && npm run build",
+  "customizations": {
+    "vscode": {
+      "extensions": ["dbaeumer.vscode-eslint", "esbenp.prettier-vscode"]
+    }
+  }
+}
