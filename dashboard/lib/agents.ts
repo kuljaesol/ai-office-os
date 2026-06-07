@@ -32,17 +32,18 @@ export const ZONES: Zone[] = [
   { id: "knowledge", label: "KNOWLEDGE + ADMIN", x: 62, y: 54, w: 34, h: 40, tint: "rgba(251,191,36,0.10)" },
 ];
 
+// x,y are % of the office image. Tweak these to sit each card on a desk.
 export const AGENTS: Agent[] = [
-  { id: "a0", name: "เซลส์ เอ", role: "งานขายใหม่", zoneId: "sales", avatar: "/characters/char_0.png", status: "online", x: 10, y: 22, bubble: "ปิดดีลใหม่ 2 ราย" },
-  { id: "a1", name: "คอนเทนต์ คิด", role: "ครีเอทีฟ", zoneId: "creative", avatar: "/characters/char_1.png", status: "online", x: 42, y: 18 },
-  { id: "a2", name: "แคมเปญ บี", role: "มีเดีย", zoneId: "creative", avatar: "/characters/char_2.png", status: "busy", x: 54, y: 26, bubble: "กำลังรันแคมเปญ" },
-  { id: "a3", name: "โฟลว์ บี", role: "เวิร์กโฟลว์/API", zoneId: "automation", avatar: "/characters/char_3.png", status: "online", x: 74, y: 20 },
-  { id: "a4", name: "ออปส์ ใหม่", role: "Cross-dept runner", zoneId: "automation", avatar: "/characters/char_4.png", status: "busy", x: 86, y: 30, bubble: "ซิงค์งานข้ามทีม" },
-  { id: "a5", name: "ดาต้า นก", role: "Left aisle runner", zoneId: "data", avatar: "/characters/char_5.png", status: "online", x: 26, y: 66 },
-  { id: "a6", name: "ดาต้า เอ", role: "dashboard", zoneId: "data", avatar: "/characters/char_6.png", status: "online", x: 42, y: 74, bubble: "อัปเดตแดชบอร์ด" },
-  { id: "a7", name: "ทิกเก็ต บี", role: "จัดการ ticket", zoneId: "data", avatar: "/characters/char_7.png", status: "idle", x: 34, y: 84 },
-  { id: "a8", name: "เคบี เฟิร์น", role: "Right aisle runner", zoneId: "knowledge", avatar: "/characters/char_8.png", status: "online", x: 70, y: 66 },
-  { id: "a9", name: "แอดมิน", role: "ดูแลระบบ", zoneId: "knowledge", avatar: "/characters/char_9.png", status: "online", x: 84, y: 78 },
+  { id: "a0", name: "เซลส์ เอ", role: "งานขายใหม่", zoneId: "sales", avatar: "/characters/char_0.png", status: "online", x: 19, y: 40 },
+  { id: "a1", name: "คอนเทนต์ คิด", role: "ครีเอทีฟ", zoneId: "creative", avatar: "/characters/char_1.png", status: "online", x: 45, y: 25 },
+  { id: "a2", name: "แคมเปญ บี", role: "มีเดีย", zoneId: "creative", avatar: "/characters/char_2.png", status: "busy", x: 57, y: 33 },
+  { id: "a3", name: "โฟลว์ บี", role: "เวิร์กโฟลว์/API", zoneId: "automation", avatar: "/characters/char_3.png", status: "online", x: 75, y: 27 },
+  { id: "a4", name: "ออปส์ ใหม่", role: "Cross-dept runner", zoneId: "automation", avatar: "/characters/char_4.png", status: "busy", x: 87, y: 41 },
+  { id: "a5", name: "ดาต้า นก", role: "Left aisle runner", zoneId: "data", avatar: "/characters/char_5.png", status: "online", x: 22, y: 66 },
+  { id: "a6", name: "ดาต้า เอ", role: "dashboard", zoneId: "data", avatar: "/characters/char_6.png", status: "online", x: 41, y: 72 },
+  { id: "a7", name: "ทิกเก็ต บี", role: "จัดการ ticket", zoneId: "data", avatar: "/characters/char_7.png", status: "idle", x: 30, y: 86 },
+  { id: "a8", name: "เคบี เฟิร์น", role: "Right aisle runner", zoneId: "knowledge", avatar: "/characters/char_8.png", status: "online", x: 66, y: 66 },
+  { id: "a9", name: "แอดมิน", role: "ดูแลระบบ", zoneId: "knowledge", avatar: "/characters/char_9.png", status: "online", x: 83, y: 76 },
 ];
 
 export const STATUS_STYLE: Record<AgentStatus, { label: string; dot: string; text: string }> = {

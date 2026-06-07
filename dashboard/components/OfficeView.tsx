@@ -22,7 +22,7 @@ interface Token {
   color: string;
 }
 
-const SPEED = 11; // % of canvas per second
+const SPEED = 6; // % of canvas per second (lower = slower walk)
 const BUBBLE_MS = 2600;
 const HANDOFF_DIST = 4.5;
 
@@ -120,17 +120,15 @@ export default function OfficeView() {
       )}
       <div className="office-grid absolute inset-0 opacity-60" style={{ opacity: bgOk ? 0.15 : 0.6 }} />
 
-      {/* zones */}
+      {/* zone labels only (the real office image provides the layout) */}
       {ZONES.map((z) => (
-        <div
+        <span
           key={z.id}
-          className="absolute rounded-xl border border-white/10"
-          style={{ left: `${z.x}%`, top: `${z.y}%`, width: `${z.w}%`, height: `${z.h}%`, background: z.tint }}
+          className="absolute rounded bg-black/30 px-1.5 py-0.5 text-[10px] font-semibold tracking-wider text-white/50"
+          style={{ left: `${z.x}%`, top: `${z.y}%` }}
         >
-          <span className="absolute left-2 top-1.5 text-[10px] font-semibold tracking-wider text-white/40">
-            {z.label}
-          </span>
-        </div>
+          {z.label}
+        </span>
       ))}
 
       {/* work-in-transit beams */}
