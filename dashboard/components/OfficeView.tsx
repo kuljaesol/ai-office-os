@@ -104,21 +104,33 @@ export default function OfficeView() {
   const byId: Record<string, Mover> = Object.fromEntries(movers.map((m) => [m.id, m]));
   const tokens = tokensRef.current;
   const carrying = new Set(tokens.map((t) => t.holderId));
-  const [bgOk, setBgOk] = useState(true);
+  // background priority: video (floor.mp4) -> image (floor.png) -> CSS grid
+  const [bg, setBg] = useState<"video" | "image" | "none">("video");
 
   return (
     <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1a1830] via-[#16142a] to-[#0f0e1d] shadow-2xl">
-      {/* real office background (drops in when /office/floor.png exists, else falls back to CSS) */}
-      {bgOk && (
+      {/* office background: prefers a looping video, falls back to image, then CSS */}
+      {bg === "video" && (
+        <video
+          src="/office/floor.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          onError={() => setBg("image")}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      )}
+      {bg === "image" && (
         <img
           src="/office/floor.png"
           alt=""
-          onError={() => setBgOk(false)}
+          onError={() => setBg("none")}
           className="absolute inset-0 h-full w-full object-cover"
           draggable={false}
         />
       )}
-      <div className="office-grid absolute inset-0 opacity-60" style={{ opacity: bgOk ? 0.15 : 0.6 }} />
+      <div className="office-grid absolute inset-0" style={{ opacity: bg === "none" ? 0.6 : 0.15 }} />
 
       {/* zone labels only (the real office image provides the layout) */}
       {ZONES.map((z) => (
