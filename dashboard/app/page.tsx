@@ -35,14 +35,8 @@ export default function Page() {
         {/* content */}
         <section className="flex-1 overflow-auto p-6">
           {active === "office" ? (
-            <div className="flex h-full flex-col gap-4">
-              <div className="rounded-xl bg-gradient-to-r from-indigo-600/40 to-fuchsia-600/30 px-6 py-4 ring-1 ring-white/10">
-                <h1 className="text-xl font-bold">SANOOK AI Office — พนักงาน AI 100%</h1>
-                <p className="text-sm text-slate-300">ภาพรวมออฟฟิศแบบเรียลไทม์</p>
-              </div>
-              <div className="min-h-0 flex-1">
-                <OfficeView />
-              </div>
+            <div className="h-full">
+              <OfficeView />
             </div>
           ) : active === "agents" ? (
             <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
