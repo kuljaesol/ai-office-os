@@ -104,10 +104,21 @@ export default function OfficeView() {
   const byId: Record<string, Mover> = Object.fromEntries(movers.map((m) => [m.id, m]));
   const tokens = tokensRef.current;
   const carrying = new Set(tokens.map((t) => t.holderId));
+  const [bgOk, setBgOk] = useState(true);
 
   return (
     <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1a1830] via-[#16142a] to-[#0f0e1d] shadow-2xl">
-      <div className="office-grid absolute inset-0 opacity-60" />
+      {/* real office background (drops in when /office/floor.png exists, else falls back to CSS) */}
+      {bgOk && (
+        <img
+          src="/office/floor.png"
+          alt=""
+          onError={() => setBgOk(false)}
+          className="absolute inset-0 h-full w-full object-cover"
+          draggable={false}
+        />
+      )}
+      <div className="office-grid absolute inset-0 opacity-60" style={{ opacity: bgOk ? 0.15 : 0.6 }} />
 
       {/* zones */}
       {ZONES.map((z) => (
