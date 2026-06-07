@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { AGENTS, ZONES } from "@/lib/agents";
 import AgentCard from "./AgentCard";
+import Clock from "./Clock";
 
 interface Mover {
   id: string;
@@ -175,11 +176,8 @@ export default function OfficeView() {
         <div className="text-[9px] text-slate-400">{AGENTS.length} agents · {tokens.length} งานกำลังส่งต่อ</div>
       </div>
 
-      {/* brand stamp — also masks the source video's watermark in the bottom-right corner */}
-      <div className="absolute bottom-0 right-0 z-20 flex items-center gap-1.5 rounded-tl-xl bg-[#0f0e1d]/95 px-4 py-2.5 text-[11px] font-semibold text-white/75 backdrop-blur-sm">
-        <span className="h-2 w-2 rounded-full bg-indigo-400" />
-        SANOOK&nbsp;AI&nbsp;OS
-      </div>
+      {/* live clock — also masks the source video's watermark in the bottom-right corner */}
+      <Clock />
 
       {/* agents */}
       {AGENTS.map((a) => {
