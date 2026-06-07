@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* subtle grid texture for the office floor placeholder */
+.office-grid {
+  background-image:
+    linear-gradient(rgba(124, 109, 230, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(124, 109, 230, 0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
