@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { AGENTS, ZONES } from "@/lib/agents";
 import AgentCard from "./AgentCard";
 import Clock from "./Clock";
+import VideoBackground from "./VideoBackground";
 
 interface Mover {
   id: string;
@@ -112,15 +113,7 @@ export default function OfficeView() {
     <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1a1830] via-[#16142a] to-[#0f0e1d] shadow-2xl">
       {/* office background: prefers a looping video, falls back to image, then CSS */}
       {bg === "video" && (
-        <video
-          src="/office/floor.mp4"
-          autoPlay
-          loop
-          muted
-          playsInline
-          onError={() => setBg("image")}
-          className="absolute inset-0 h-full w-full object-cover"
-        />
+        <VideoBackground src="/office/floor.mp4" onError={() => setBg("image")} />
       )}
       {bg === "image" && (
         <img
