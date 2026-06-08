@@ -106,8 +106,18 @@ export default function OfficeView() {
   const byId: Record<string, Mover> = Object.fromEntries(movers.map((m) => [m.id, m]));
   const tokens = tokensRef.current;
   const carrying = new Set(tokens.map((t) => t.holderId));
-  // background priority: video (floor.mp4) -> image (floor.png) -> CSS grid
-  const [bg, setBg] = useState<"video" | "image" | "none">("video");
+
+  // background: probe for a video first; if none, use the image; else CSS grid
+  const [bg, setBg] = useState<"loading" | "video" | "image" | "none">("loading");
+  useEffect(() => {
+    let alive = true;
+    fetch("/office/floor.mp4", { method: "HEAD" })
+      .then((r) => alive && setBg(r.ok ? "video" : "image"))
+      .catch(() => alive && setBg("image"));
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   return (
     <div className="relative h-full w-full overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-[#1a1830] via-[#16142a] to-[#0f0e1d] shadow-2xl">
